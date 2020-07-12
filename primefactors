@@ -1,6 +1,5 @@
 # code that gives a list of prime factors (including repetitions) for a given number input
 
-
 def primecheck(n):
 # code for checking if a number is prime or not
     divnum = 0
@@ -41,4 +40,6 @@ def primefac(numorg):
         if product == numorg:
         # once product is equal to our input number, we stop the for loop, since we've found all the prime factors by then
             break
-    return plist # returns our list of prime factors of the input number
+            
+    return plist
+    # returns our list of prime factors of the input number
