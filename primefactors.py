@@ -43,4 +43,4 @@ def primefac(numorg):
             break
             
     return plist
-    # returns our list of prime factors of the input number
+    # returns our list of prime factors of the input number early on
