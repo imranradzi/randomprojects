@@ -6,20 +6,18 @@ while running1:
     if ask1 == 'yes':
         quantityrun = True
         while quantityrun:
-            error = 'no'
             quantityask = input('how many things are we choosing from?\n')
             try:
                 int(quantityask)
             except:
                 print('INVALID INPUT TRY AGAIN\n')
-                error = 'yes'
-            if error == 'no':
+            else:
                 quantityrun = False
                 quantity = int(quantityask)
         numberlist = [i for i in range(quantity)]
         nameassignrun = True
         while nameassignrun:
-            nameassign = input('assign names?\n')
+            nameassign = input('assign names? (yes or no)\n')
             if nameassign == 'yes':
                 for i in numberlist:
                     numberlist[i] = input('enter name\n')
