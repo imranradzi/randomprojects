@@ -14,6 +14,10 @@ while running:
 
     soooup = BeautifulSoup(r.text, 'html.parser')
     stats = soooup.findAll('td', {'jsname': 'VBiLTe'})
+    daily = soooup.find('div', {'class': 'FMJSFf'})
+    caselist = daily.find('ol')
+    latestcase = caselist.findAll('li')[-1]
+    print(latestcase.text)
 
     index = 0
     for i in stats:
