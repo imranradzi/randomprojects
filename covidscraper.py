@@ -19,7 +19,12 @@ while running:
     for i in stats:
         caption1 = i.find('div').text
         stats1 = i.findAll('div')[1]
-        stats1more = stats1.find('span').text
+        try:
+            stats1more = stats1.find('span').text
+        except:
+            stats1more = '---'
+        else:
+            stats1more = stats1.find('span').text
         print(caption1 + ': ' + stats1more)
         index += 1
         if index == 3:
