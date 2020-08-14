@@ -7,19 +7,19 @@ def countrycovidchecker(country):
     r = session.get('https://www.worldometers.info/coronavirus/country/' + country)
     covidsoup = BeautifulSoup(r.text, 'html.parser')
 
-    maincontent = covidsoup.findAll('div', {'class': 'maincounter-number'})
+    maincontent = covidsoup.findAll('div', {'class': 'maincounter-number'}) # contains elements with the covid-19 stats we want
     index = 1
     for i in maincontent:
         if index == 1:
-            print('total covid cases')
+            print('Total covid cases')
         elif index == 2:
-            print('current total deaths')
+            print('Current total deaths')
         elif index == 3:
-            print('total recovered')
+            print('Total recovered')
         print(i.span.text + '\n')
         index += 1
     daily = covidsoup.find('div', {'class': 'news_date'})
-    print(daily.next_sibling.find('strong').text)
+    print(daily.next_sibling.find('strong').text + ' (' + daily.text + ')') # current day's new cases
 
 running = True
 while running:
@@ -36,18 +36,24 @@ while running:
         r1 = session.get('https://www.worldometers.info/coronavirus/#countries')
         countrysoup = BeautifulSoup(r1.text, 'html.parser')
         countries = countrysoup.findAll('a', {'class': 'mt_a'})
-        countrylist = set()
+        countrylist = set() # technically a set
+        # i use a set instead of a list here since there are duplicates of countries' names
+        # in the html code
         for i in countries:
-            countrylist.add(i.text)
+            countrylist.add(i.text) 
 
         initial = input('Type the initial letter of country\n').capitalize()
+        # first letter of the countries' names are capitalized in the set so we need to
+        # capitalize our input
         index = 1
-        tempcountrylist = []
+        tempcountrylist = [] # list of countries starting with initial
         for i in countrylist:
             if str(i)[0] == initial:
                 print(str(index) + ': ' +i)
                 index += 1
                 if str(i) == 'USA':
+                    # few exceptions where the countries' names in the list don't match
+                    # their url names
                     tempcountrylist.append('US')
                 elif str(i) == 'UAE':
                     tempcountrylist.append('united-arab-emirates')
@@ -72,7 +78,10 @@ while running:
             except:
                 print('Invalid input, try again\n')
                 continue
-
+    else:
+        print('Invalid input, please try again')
+        continue # loop resumes from the start if we don't pick any of the available options
+        
     contloop = True
     while contloop:
         contornot = input('\nContinue? (Y/N)\n')
