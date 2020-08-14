@@ -5,7 +5,7 @@ session = HTMLSession()
 
 def countrycovidchecker(country):
     print(country + ' stats')
-    r = session.get('https://www.worldometers.info/coronavirus/country/' + country)
+    r = session.get('https://www.worldometers.info/coronavirus/country/' + country) # url containing country's covid-19 stats
     covidsoup = BeautifulSoup(r.text, 'html.parser')
 
     maincontent = covidsoup.findAll('div', {'class': 'maincounter-number'}) # contains elements with the covid-19 stats we want
@@ -65,6 +65,7 @@ while running:
         ask = input('Choose which (type index or country name)\n')
         asktype = 'unknown'
         try:
+            # check to see if user input is an index or a country's name
             int(ask)
         except:
             asktype = 'non-integer'
