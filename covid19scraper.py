@@ -4,6 +4,7 @@ from requests_html import HTMLSession
 session = HTMLSession()
 
 def countrycovidchecker(country):
+    print(country + ' stats')
     r = session.get('https://www.worldometers.info/coronavirus/country/' + country)
     covidsoup = BeautifulSoup(r.text, 'html.parser')
 
@@ -45,12 +46,9 @@ while running:
         initial = input('Type the initial letter of country\n').capitalize()
         # first letter of the countries' names are capitalized in the set so we need to
         # capitalize our input
-        index = 1
         tempcountrylist = [] # list of countries starting with initial
         for i in countrylist:
             if str(i)[0] == initial:
-                print(str(index) + ': ' +i)
-                index += 1
                 if str(i) == 'USA':
                     # few exceptions where the countries' names in the list don't match
                     # their url names
@@ -59,6 +57,11 @@ while running:
                     tempcountrylist.append('united-arab-emirates')
                 else:
                     tempcountrylist.append(str(i))
+        index = 1
+        tempcountrylist.sort()
+        for countryname in tempcountrylist:
+            print(str(index) + '. ' + countryname)
+            index += 1
         ask = input('Choose which (type index or country name)\n')
         asktype = 'unknown'
         try:
